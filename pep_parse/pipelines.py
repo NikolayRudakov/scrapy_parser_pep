@@ -7,7 +7,7 @@
 # from itemadapter import ItemAdapter
 
 import csv
-import datetime
+import datetime as dt
 from pathlib import Path
 
 
@@ -33,12 +33,16 @@ class PepParsePipeline:
     def close_spider(self, spider):
         global item_count
         results["Total"] = item_count
-        filename = (
-            str(BASE_DIR)
-            + "/results/status_summary_"
-            + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            + ".csv"
-        )
+        # Не проходит проверку на W504 и W503 одновременно
+        # filename = (
+        #    str(BASE_DIR)
+        #     + "/results/status_summary_"
+        #     + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        #     + ".csv"
+        # )
+        filename = str(BASE_DIR) + "/results/status_summary_"
+        filename = filename+ dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = filename + ".csv"
 
         with open(filename, "w", newline="") as csvfile:
             fieldnames = ["Статус", "Количество"]
