@@ -19,7 +19,7 @@ class PepSpider(scrapy.Spider):
         title = response.css("h1.page-title::text").get()
         dash_position = str(title).find(" – ")
         number = int(title[4:dash_position])
-        name = title[dash_position + 3 :]
+        name = title[dash_position + 3:]
         status = response.xpath(
             '//dt[contains(., "Status")]/following-sibling::dd[1]//text()'
         ).get()

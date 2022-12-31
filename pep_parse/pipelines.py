@@ -3,11 +3,13 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
-
 # useful for handling different item types with a single interface
-import csv, datetime
+# from itemadapter import ItemAdapter
+
+import csv
+import datetime
 from pathlib import Path
-from itemadapter import ItemAdapter
+
 
 BASE_DIR = Path(__file__).parent.parent
 results = {}
@@ -32,10 +34,10 @@ class PepParsePipeline:
         global item_count
         results["Total"] = item_count
         filename = (
-            str(BASE_DIR)
-            + "/results/status_summary_"
-            + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            + ".csv"
+            str(BASE_DIR) +
+            "/results/status_summary_" +
+            datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") +
+            ".csv"
         )
 
         with open(filename, "w", newline="") as csvfile:
