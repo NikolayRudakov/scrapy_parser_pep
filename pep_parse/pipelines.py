@@ -41,7 +41,7 @@ class PepParsePipeline:
         #     + ".csv"
         # )
         filename = str(BASE_DIR) + "/results/status_summary_"
-        filename = filename+ dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = filename + dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = filename + ".csv"
 
         with open(filename, "w", newline="") as csvfile:
