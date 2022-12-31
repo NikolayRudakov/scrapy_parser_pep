@@ -34,10 +34,10 @@ class PepParsePipeline:
         global item_count
         results["Total"] = item_count
         filename = (
-            str(BASE_DIR) +
-            "/results/status_summary_" +
-            datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") +
-            ".csv"
+            str(BASE_DIR)
+            + "/results/status_summary_"
+            + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            + ".csv"
         )
 
         with open(filename, "w", newline="") as csvfile:
