@@ -1,4 +1,5 @@
-import scrapy, re
+import scrapy
+import re
 from scrapy.linkextractors import LinkExtractor
 from pep_parse.items import PepParseItem
 

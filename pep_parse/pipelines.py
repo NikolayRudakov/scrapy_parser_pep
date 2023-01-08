@@ -6,7 +6,8 @@
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
 
-import csv, os
+import csv
+import os
 import datetime as dt
 from pathlib import Path
 from collections import defaultdict
@@ -14,8 +15,6 @@ from collections import defaultdict
 BASE_DIR = Path(__file__).parent.parent
 FIELDNAMES = ["Статус", "Количество"]
 results = defaultdict(int)
-
-
 
 class PepParsePipeline:
 
