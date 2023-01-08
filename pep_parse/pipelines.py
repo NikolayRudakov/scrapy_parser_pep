@@ -6,47 +6,37 @@
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
 
-import csv
+import csv, os
 import datetime as dt
 from pathlib import Path
-
+from collections import defaultdict
 
 BASE_DIR = Path(__file__).parent.parent
-results = {}
-item_count = 0
+FIELDNAMES = ["Статус", "Количество"]
+results = defaultdict(int)
+
 
 
 class PepParsePipeline:
+
+    item_count = 0
+
     def open_spider(self, spider):
-        global item_count
-        item_count = 0
+        PepParsePipeline.item_count = 0
 
     def process_item(self, item, spider):
-        global item_count
-        item_count += 1
-        if item["status"] not in results.keys():
-            results[item["status"]] = 1
-        else:
-            results[item["status"]] += 1
+        PepParsePipeline.item_count += 1
+        results[item["status"]] += 1
         return item
 
     def close_spider(self, spider):
         global item_count
-        results["Total"] = item_count
-        # Не проходит проверку на W504 и W503 одновременно
-        # filename = (
-        #    str(BASE_DIR)
-        #     + "/results/status_summary_"
-        #     + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        #     + ".csv"
-        # )
-        filename = str(BASE_DIR) + "/results/status_summary_"
-        filename = filename + dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = filename + ".csv"
-
+        results["Total"] = PepParsePipeline.item_count
+        now_time = dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = f'status_summary_{now_time}.csv'
+        filename = os.path.join(BASE_DIR, 'results', filename)
         with open(filename, "w", newline="") as csvfile:
-            fieldnames = ["Статус", "Количество"]
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES)
             writer.writeheader()
             for key, value in results.items():
-                writer.writerow({"Статус": key, "Количество": value})
+                writer.writerow({FIELDNAMES[0]: key, FIELDNAMES[1]: value})
