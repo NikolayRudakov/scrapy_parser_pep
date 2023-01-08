@@ -16,6 +16,7 @@ BASE_DIR = Path(__file__).parent.parent
 FIELDNAMES = ["Статус", "Количество"]
 results = defaultdict(int)
 
+
 class PepParsePipeline:
 
     item_count = 0
